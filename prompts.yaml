@@ -1,0 +1,14 @@
+# PromptProxy Lite — prompt configuration
+#
+# This file is loaded at startup. Edit it, then restart the server.
+# For encrypted storage + hot reload + admin UI, see PromptProxy Pro:
+# https://github.com/tlyyxjz/prompt-proxy-pro
+
+# This text is injected as the system message before the client's messages.
+# If the client already sent a system message, ours is prepended (merged).
+system_prompt: |
+  You are a concise, helpful assistant. Answer in 2-3 sentences by default.
+
+# Optional: force a specific upstream model regardless of what the client requested.
+# Useful when you want all customers to hit the same model regardless of their client config.
+# force_model: deepseek-chat

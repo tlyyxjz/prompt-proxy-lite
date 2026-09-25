@@ -1,5 +1,8 @@
 # PromptProxy Lite
 
+[![tests](https://github.com/tlyyxjz/prompt-proxy-lite/actions/workflows/tests.yml/badge.svg)](https://github.com/tlyyxjz/prompt-proxy-lite/actions/workflows/tests.yml)
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 > A minimal open-source OpenAI-compatible API proxy that injects system prompts server-side. The lite, single-tenant, plaintext-config cousin of [PromptProxy Pro](https://github.com/tlyyxjz/prompt-proxy-pro).
 
 If you sell prompts, manage a small team, or want encrypted prompt storage + a full admin panel + multi-AI backends + usage analytics, check out the **Pro** edition linked above.
@@ -21,7 +24,7 @@ PromptProxy Lite solves the simplest version of that problem: **the prompt lives
 - Server-side system prompt injection from a local `prompts.yaml`
 - Bearer API key authentication (keys defined in `.env`)
 - Forwards to any OpenAI-compatible backend (OpenAI, DeepSeek, OpenRouter, Groq, Together, ...)
-- Single Python file you can read in 5 minutes
+- ~230 lines of plain Python across 5 small modules — readable in 5 minutes
 
 ## What Lite does NOT do (Pro does)
 
@@ -112,6 +115,20 @@ Use Cloudflare Tunnel, Tailscale Funnel, or any reverse proxy. Lite does not inc
 - Lite uses a constant-time comparison for API keys.
 - Lite has no rate limiting. Use Pro or a reverse proxy (Caddy, Cloudflare) for rate limits.
 - Never commit your `.env` file. The included `.gitignore` already excludes it.
+
+## Tests
+
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+pytest -q
+```
+
+The suite covers the `/health` endpoint, bearer-key rejection (missing / wrong key),
+server-side system-prompt injection and merge, and `CLIENT_API_KEYS` parsing.
+It runs in CI on Python 3.10 and 3.12.
+
+> `pytest-asyncio` is required — `pytest.ini` sets `asyncio_mode = auto` and the
+> client fixture is async. Without the plugin those cases error instead of running.
 
 ## License
 

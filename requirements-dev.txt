@@ -1,0 +1,6 @@
+# Test-only dependencies.
+# pytest-asyncio is REQUIRED: pytest.ini sets asyncio_mode = auto and the suite
+# contains async fixtures/tests. Without it the async cases error out instead of
+# running (they only *look* green in environments where the plugin is missing).
+pytest>=8.0
+pytest-asyncio>=0.24
